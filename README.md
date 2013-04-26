@@ -1,13 +1,17 @@
 FEKIT
 =====================
 
-## fekit extension是什么? ##
+### fekit extension是什么? ###
 
 有时你希望增加一些命令给 fekit，但是大多数情况下并不想把它加入 fekit project 官方命令中。 
 
 所以，fekit extension为你提供了这样一种办法来扩展命令。
 
 ## 如何开发？ ###
+
+请先将本项目 clone 到本地(假设要开发一个svn扩展)
+
+    git clone git@github.com:rinh/fekit-extension-template.git ~/fekit-extension-svn
 
 本项目是 extension标准模板，以下文件是你需要修改的。
 
@@ -52,6 +56,16 @@ package.json
     fekit svn --help
 
 
+### 安装时的一些问题 ###
+
+如果出现
+
+    sh: node: Permission denied
+
+这样的提示，请使用
+
+    npm config set user 0
+    npm config set unsafe-perm true
 
 
 
