@@ -1,0 +1,16 @@
+{
+    "fekit_extension_command_name":"template",
+    "name": "fekit-extension-template",
+    "version": "0.0.1",
+    "description": "",
+    "dependencies": {},
+    "main": "index.js",
+    "scripts": {},
+    "repository": "",
+    "author": "",
+    "license": "BSD",
+    "scripts":{
+        "postinstall":"node ./scripts/postinstall.js",
+        "preuninstall":"node ./scripts/preuninstall.js"
+    }
+}
