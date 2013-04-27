@@ -8,4 +8,6 @@ var get_user_home = function() {
 
 var extpath = path.join( get_user_home() , ".fekit" , ".extensions" , pkg.fekit_extension_command_name + ".js" );
 
+try{
 fs.unlinkSync( extpath );
+} catch(e){}
