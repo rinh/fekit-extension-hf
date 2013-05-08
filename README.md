@@ -11,7 +11,7 @@ FEKIT
 
 请先将本项目 clone 到本地(假设要开发一个svn扩展)
 
-    git clone git@github.com:rinh/fekit-extension-template.git ~/fekit-extension-svn
+    git clone git@github.com:rinh/fekit-extension-template.git ./fekit-extension-svn
 
 本项目是 extension标准模板，以下文件是你需要修改的。
 

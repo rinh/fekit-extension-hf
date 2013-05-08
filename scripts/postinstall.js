@@ -88,6 +88,7 @@ var dirpath = path.join( get_user_home() , ".fekit" , ".extensions" );
 var extpath = path.join( dirpath , pkg.fekit_extension_command_name + ".js" );
 var curr = path.join( path.resolve( __dirname , '../' )  , pkg.main || "index.js" );
 
+curr = curr.replace(/\\/g,'/').replace(/\//g, path.sep )
 
 try{
 
@@ -95,7 +96,7 @@ mkdirP.sync( dirpath );
 
 fs.writeFileSync( extpath , [
     "exports.version = '" + pkg.version + "';" , 
-    "exports.path = '" + curr + "';" ].join('\n') 
+    "exports.path = '" + curr.replace(/\\/g,'\\\\') + "';" ].join('\n') 
 )
 
 } catch(e) {}
