@@ -31,7 +31,7 @@ exports.run = function( options ){
 
 function build_file( path ) {
     var src = compileHTML( path ) 
-    var prdfile = path.replace('/src/','/prd/');
+    var prdfile = path.replace(/(\/|\\)src(\/|\\)/,'$1prd$2');
     utils.file.mkdirp( utils.path.dirname( prdfile ) )
     utils.file.io.write( prdfile , src )
     utils.logger.log( path + " done." )
