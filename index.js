@@ -19,7 +19,7 @@ exports.run = function( options ){
     var reg = /src\/.*?\/.*.html$/;
 
     utils.path.each_directory( process.cwd() , function( path ){ 
-        path2 = path.replace /\\/g , '/'
+        var path2 = path.replace(/\\/g , '/')
         if( reg.test( path2 ) ) {
             build_file( path );
         }
