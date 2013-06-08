@@ -1,3 +1,4 @@
+var util = require("util");
 var path = require("path");
 var fs = require("fs");
 var pkg = require("../package.json");
@@ -96,7 +97,7 @@ mkdirP.sync( dirpath );
 
 fs.writeFileSync( extpath , [
     "exports.version = '" + pkg.version + "';" , 
-    "exports.path = '" + curr.replace(/\\/g,'\\\\') + "';" ].join('\n') 
+    "exports.path = " + util.inspect(curr) + "';" ].join('\n') 
 )
 
 } catch(e) {}
