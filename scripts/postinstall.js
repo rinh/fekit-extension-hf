@@ -97,7 +97,7 @@ mkdirP.sync( dirpath );
 
 fs.writeFileSync( extpath , [
     "exports.version = '" + pkg.version + "';" , 
-    "exports.path = " + util.inspect(curr) + "';" ].join('\n') 
+    "exports.path = " + util.inspect(curr) + ";" ].join('\n') 
 )
 
 } catch(e) {}
