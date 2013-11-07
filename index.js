@@ -81,7 +81,7 @@ function grep( src , type , cb ) {
             return src.replace( /\{\{ver\}\}/g , VER )
         case "js":
             return src.replace( /\{\{js (.*?)\}\}/g , function($0, $1){
-                return cb($1);
+                return ";" + cb($1);
             });
         case "css":
             var _src = src.replace( /\{\{css (.*?)\}\}/g , function($0, $1){
