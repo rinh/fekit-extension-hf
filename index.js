@@ -56,7 +56,7 @@ function compileHTML( path ) {
 
     htmlSrc = grep( htmlSrc , 'js' , function( path ){
         var f = combine_path( basePath , path );
-        return minCode( ".js" , utils.file.io.read( f ) )
+        return minCode( ".js" , utils.file.io.read( f ) ).replace(/;?$|;?\s*$/,";")
     })    
 
     htmlSrc = grep( htmlSrc , 'css' , function( path ){
