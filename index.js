@@ -19,9 +19,10 @@ exports.run = function( options ){
     var reg = /src\/.*?\/.*.html$/;
 
     utils.path.each_directory( process.cwd() , function( path ){ 
+        var partial_path = path.replace( process.cwd() , '' );
         var path2 = path.replace(/\\/g , '/')
         if( reg.test( path2 ) ) {
-            build_file( path );
+            build_file( path , partial_path );
         }
     } , true );
 
@@ -29,9 +30,10 @@ exports.run = function( options ){
 
 }
 
-function build_file( path ) {
+function build_file( path , partial_path ) {
+    var partial_path_prd = partial_path.replace(/(\/|\\)src(\/|\\)/,'$1prd$2');
     var src = compileHTML( path ) 
-    var prdfile = path.replace(/(\/|\\)src(\/|\\)/,'$1prd$2');
+    var prdfile = path.replace( partial_path , partial_path_prd );
     utils.file.mkdirp( utils.path.dirname( prdfile ) )
     utils.file.io.write( prdfile , src )
     utils.logger.log( path + " done." )
@@ -79,7 +81,7 @@ function grep( src , type , cb ) {
             return src.replace( /\{\{ver\}\}/g , VER )
         case "js":
             return src.replace( /\{\{js (.*?)\}\}/g , function($0, $1){
-                return cb($1);
+                return ";" + cb($1);
             });
         case "css":
             var _src = src.replace( /\{\{css (.*?)\}\}/g , function($0, $1){
