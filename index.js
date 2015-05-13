@@ -43,7 +43,7 @@ exports.run = function( options ){
 
             if (!rulesCheckResult) {
                 utils.logger.error('样式规则检查失败，打包失败，请修改后重新打包');
-                process.exit();
+                // process.exit();
             }
             
 
