@@ -8,6 +8,7 @@ var utils = require( syspath.join( baselib , 'util'  ) )
 var minCode = require( syspath.join( baselib , 'commands/min' ) ).minCode
 
 var http = require("http")
+var rules = require('./rules')
 
 var VER = new Date().toFormat('YYYYMMDDHH24MISS')
 
@@ -24,12 +25,29 @@ exports.run = function( options ){
 
      if( options.server ) return run_server( options );
      else {
+
         var reg = /src\/.*?\/.*.html$/;
+        var styleReg = /src\/.*?\/.*.css$/;
 
         utils.path.each_directory( process.cwd() , function( path ){ 
+            
             var partial_path = path.replace( process.cwd() , '' );
             var path2 = path.replace(/\\/g , '/')
-            if( reg.test( path2 ) ) {
+
+            var rulesCheckResult = true;
+
+            // css规范检查
+            if(styleReg.test(path2)) {
+                rulesCheckResult = rules.checkRules(path2);
+            }
+
+            if (!rulesCheckResult) {
+                utils.logger.error('样式规则检查失败，打包失败，请修改后重新打包');
+                process.exit();
+            }
+            
+
+            if(reg.test( path2 ) ) {
                 build_file( path , partial_path );
             }
         } , true );
@@ -234,3 +252,4 @@ function handleSSI( src ){
     })
     return src
 }
+
