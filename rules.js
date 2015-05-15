@@ -4,10 +4,11 @@ var url = require('url')
 var querystring = require('querystring')
 var baselib = syspath.join( module.parent.parent.filename , '../' )
 var utils = require( syspath.join( baselib , 'util'  ) )
-var minCode = require( syspath.join( baselib , 'commands/min' ) ).minCode
+var minCode = require( syspath.join( baselib , 'commands/_min_mincode' ) ).minCode
 
-var KEYWORDS = ['.q_header', '.qhf_', '@media'];
+var KEYWORDS = ['.q_header', '.qhf_', '@', 'require'];
 var reg = /\}([\s\S]*?)\{/g;
+var mediaReg = /@media(.*?)\{(.*?)\}(.*?)\}/g
 
 
 exports.checkRules = function (path) {
@@ -19,6 +20,7 @@ exports.checkRules = function (path) {
 
 function getStyles(path) {
     var content = minCode( ".css" , utils.file.io.read(path) , { noSplitCSS : true }); // 先压缩css，确保格式化
+    content = parseMediaStyle(content)
     var firstClass = content.substr(0, content.indexOf('{'));
     var ret = {
         classNames: {},
@@ -47,6 +49,21 @@ function getStyles(path) {
 
     return ret;
 }
+
+
+function parseMediaStyle(content) {
+    var firstLeftBrace, lastRightBrace, media, mediaStyles, _i, _len;
+    mediaStyles = content.match(mediaReg);
+    if (mediaStyles !== null) {
+      for (_i = 0, _len = mediaStyles.length; _i < _len; _i++) {
+        media = mediaStyles[_i];
+        firstLeftBrace = media.indexOf('{');
+        lastRightBrace = media.lastIndexOf('}');
+        content = content.replace(media, media.substring(firstLeftBrace + 1, lastRightBrace));
+      }
+    }
+    return content;
+  };
 
 function checkStartWord(path, classNames) {
     

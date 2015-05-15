@@ -5,7 +5,7 @@ var url = require('url')
 var querystring = require('querystring')
 var baselib = syspath.join( module.parent.filename , '../' )
 var utils = require( syspath.join( baselib , 'util'  ) )
-var minCode = require( syspath.join( baselib , 'commands/min' ) ).minCode
+var minCode = require( syspath.join( baselib , 'commands/_min_mincode' ) ).minCode
 
 var http = require("http")
 var rules = require('./rules')
