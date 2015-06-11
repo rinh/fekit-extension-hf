@@ -27,7 +27,7 @@ exports.run = function( options ){
      else {
 
         var reg = /src\/.*?\/.*.html$/;
-        var styleReg = /src\/.*?\/.*.css$/;
+        var styleReg = /src\/common\/.*?\/.*.css$/;
 
         utils.path.each_directory( process.cwd() , function( path ){ 
             
