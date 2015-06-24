@@ -32,6 +32,7 @@ hook  | 功能
 参数名  | 简写 | 用途 | 示例
 -----|----- | ------ | ----
 server | s | 启动服务，用于本地测试| fekit hf -s
+debug | d | 调试模式，代码不会被压缩| fekit hf -s -d
 port | p | 设置服务端口,默认80 | fekit hf -s -p 8080
 
 ### hf server ###

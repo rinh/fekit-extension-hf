@@ -1,18 +1,20 @@
 {
-    "fekit_extension_command_name":"hf",
-    "name": "fekit-extension-hf",
-    "version": "0.1.1",
-    "description": "处理header&footer项目编译使用",
-    "dependencies": {
-        "date-utils" : "*"
-    },
-    "main": "index.js",
-    "scripts": {},
-    "repository": "",
-    "author": "",
-    "license": "BSD",
-    "scripts":{
-        "postinstall":"node ./scripts/postinstall.js",
-        "preuninstall":"node ./scripts/preuninstall.js"
-    }
+  "fekit_extension_command_name": "hf",
+  "name": "fekit-extension-hf",
+  "version": "0.1.2",
+  "description": "处理header&footer项目编译使用",
+  "dependencies": {
+    "date-utils": "*",
+    "moment": "^2.10.3",
+    "uglify-js": "^2.4.23",
+    "uglifycss": "0.0.15"
+  },
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node ./scripts/postinstall.js",
+    "preuninstall": "node ./scripts/preuninstall.js"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD"
 }

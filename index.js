@@ -5,24 +5,29 @@ var url = require('url')
 var querystring = require('querystring')
 var baselib = syspath.join( module.parent.filename , '../' )
 var utils = require( syspath.join( baselib , 'util'  ) )
-var minCode = require( syspath.join( baselib , 'commands/min' ) ).minCode
+//var minCode = require( syspath.join( baselib , 'commands/min' ) ).minCode
+var uglifyjs = require( 'uglify-js' );
+var uglifycss = require( 'uglifycss' );
+var moment = require( 'moment' );
 
 var http = require("http")
-
-var VER = new Date().toFormat('YYYYMMDDHH24MISS')
-
+var isDebug=false;
+//var VER = new Date().toFormat('YYYYMMDDHH24MISS')
+var VER = moment().format( "YYYYMMDDHHmmss");
 exports.usage = "处理header&footer项目编译使用";
 
 exports.set_options = function( optimist ){
-
-    optimist.alias('s','server')
-    return optimist.describe('s','启动hf测试web服务, 如 fekit hf -s')
-
+     optimist.alias('s','server')
+     optimist.describe('s','启动hf测试web服务, 如 fekit hf -s')
+     optimist.alias('d','debug')
+     return  optimist.describe('d','启用调试模式，不会压缩代码，该参数优先级高于-m')
 }
 
 exports.run = function( options ){
-
-     if( options.server ) return run_server( options );
+     if(options.debug){
+        isDebug=true;
+     }
+     if( options.server )return run_server( options );
      else {
         var reg = /src\/.*?\/.*.html$/;
 
@@ -78,8 +83,8 @@ function compileHTML( path ) {
     var basePath = utils.path.dirname( path );
 
     var htmlSrc = utils.file.io.read( path )
-
-    htmlSrc = grep( htmlSrc , 'space' )
+    if(!isDebug)
+        htmlSrc = grep( htmlSrc , 'space' )
 
     htmlSrc = grep( htmlSrc , 'ver' )
 
@@ -89,15 +94,20 @@ function compileHTML( path ) {
     })
 
     htmlSrc = grep( htmlSrc , 'js' , function( path ){
-        var f = combine_path( basePath , path );
-        return minCode( ".js" , utils.file.io.read( f ) ).replace(/;?$|;?\s*$/,";")
+        var f = combine_path( basePath , path ); 
+        if(isDebug)
+            return utils.file.io.read( f );
+        else
+            return uglifyjs.minify( utils.file.io.read( f ) ,{fromString: true}).code.replace(/;?$|;?\s*$/,";");
     })    
 
     htmlSrc = grep( htmlSrc , 'css' , function( path ){
         var f = combine_path( basePath , path );
-        return minCode( ".css" , utils.file.io.read( f ) , { noSplitCSS : true } )
-    })    
-
+         if(isDebug)
+            return utils.file.io.read( f );
+        else 
+            return uglifycss.processString(utils.file.io.read( f ) );
+    })
     return htmlSrc;
 
 }
