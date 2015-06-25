@@ -1,6 +1,7 @@
 fekit-extension-hf
 =====================
-
+### 安装方法 ###
+    sudo npm install -g fekit-extension-hf --unsafe-perm
 ### 说明 ###
 
 处理header&footer项目编译使用
