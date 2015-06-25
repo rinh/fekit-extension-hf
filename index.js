@@ -6,14 +6,13 @@ var querystring = require('querystring')
 var baselib = syspath.join( module.parent.filename , '../' )
 var utils = require( syspath.join( baselib , 'util'  ) )
 //var minCode = require( syspath.join( baselib , 'commands/min' ) ).minCode
-var uglifyjs = require( 'uglify-js' );
-var uglifycss = require( 'uglifycss' );
-var moment = require( 'moment' );
+var uglifyjs = require('uglify-js');
+var uglifycss = require('uglifycss');
 
 var http = require("http")
 var isDebug=false;
-//var VER = new Date().toFormat('YYYYMMDDHH24MISS')
-var VER = moment().format( "YYYYMMDDHHmmss");
+
+var VER = new Date().toFormat('YYYYMMDDHH24MISS')
 exports.usage = "处理header&footer项目编译使用";
 
 exports.set_options = function( optimist ){

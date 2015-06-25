@@ -5,7 +5,6 @@
   "description": "处理header&footer项目编译使用",
   "dependencies": {
     "date-utils": "*",
-    "moment": "^2.10.3",
     "uglify-js": "^2.4.23",
     "uglifycss": "0.0.15"
   },
@@ -14,7 +13,10 @@
     "postinstall": "node ./scripts/postinstall.js",
     "preuninstall": "node ./scripts/preuninstall.js"
   },
-  "repository": "",
+  "repository": {
+     "type": "git",
+     "url": "https://github.com/rinh/fekit-extension-hf"
+  },
   "author": "",
   "license": "BSD"
 }
