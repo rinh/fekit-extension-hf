@@ -5,9 +5,10 @@ var url = require('url')
 var querystring = require('querystring')
 var baselib = syspath.join( module.parent.filename , '../' )
 var utils = require( syspath.join( baselib , 'util'  ) )
-var minCode = require( syspath.join( baselib , 'commands/min' ) ).minCode
+var minCode = require( syspath.join( baselib , 'commands/_min_mincode' ) ).minCode
 
 var http = require("http")
+var rules = require('./rules')
 
 var VER = new Date().toFormat('YYYYMMDDHH24MISS')
 
@@ -24,12 +25,29 @@ exports.run = function( options ){
 
      if( options.server ) return run_server( options );
      else {
+
         var reg = /src\/.*?\/.*.html$/;
+        var styleReg = /src\/common\/.*?\/.*.css$/;
 
         utils.path.each_directory( process.cwd() , function( path ){ 
+            
             var partial_path = path.replace( process.cwd() , '' );
             var path2 = path.replace(/\\/g , '/')
-            if( reg.test( path2 ) ) {
+
+            var rulesCheckResult = true;
+
+            // css规范检查
+            if(styleReg.test(path2) && path2.lastIndexOf('ucsidebar.css') < 0) {
+                rulesCheckResult = rules.checkRules(path2);
+            }
+
+            if (!rulesCheckResult) {
+                utils.logger.error('样式规则检查失败，打包失败，请修改后重新打包');
+                // process.exit();
+            }
+            
+
+            if(reg.test( path2 ) ) {
                 build_file( path , partial_path );
             }
         } , true );
@@ -234,3 +252,4 @@ function handleSSI( src ){
     })
     return src
 }
+
