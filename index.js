@@ -37,7 +37,7 @@ exports.run = function( options ){
             var rulesCheckResult = true;
 
             // css规范检查
-            if(styleReg.test(path2)) {
+            if(styleReg.test(path2) && path2.lastIndexOf('ucsidebar.css') < 0) {
                 rulesCheckResult = rules.checkRules(path2);
             }
 
