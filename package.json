@@ -1,7 +1,7 @@
 {
   "fekit_extension_command_name": "hf",
   "name": "fekit-extension-hf",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "处理header&footer项目编译使用",
   "dependencies": {
     "date-utils": "*",
