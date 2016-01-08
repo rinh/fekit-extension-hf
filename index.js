@@ -7,7 +7,7 @@ var syspath = require('path');
 var baselib = syspath.join(module.parent.filename, '../')
 var utils = require(syspath.join(baselib, 'util'));
 var webserver = require('./lib/webserver'); //webserver测试 fekit hf -s
-var hfpackage = require('./lib/package'); //直接打包fekit hf 
+var hfpackage = require('./lib/package'); //直接打包fekit hf
 
 var isDebug = false;
 var vermap = versionMapping = false;
@@ -24,8 +24,10 @@ exports.set_options = function(optimist) {
 exports.run = function(options) {
     isDebug = !!options.debug;
     options.hfPath = process.cwd();
-    if (options.server)
+    if (options.server){
+        console.log('服务已经启动，请访问http://127.0.0.1:'+options.p+'\n使用ctrl+c结束')
         return webserver.start(options);
+    }
     else {
         if (!utils.path.exists("./ver/versions.mapping")) {
             throw new Error('未获取到./ver/versions.mapping 请确认qzz tagname是否正确');
