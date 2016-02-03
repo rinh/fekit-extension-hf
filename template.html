@@ -3,20 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Quanr HF</title>
-	<link rel="stylesheet" href="http://qunarzz.com/home/prd/styles/home@2bf1bf8b37738b3f95d1274a579728d8.css" />
+ 	<!-- <link rel="stylesheet" href="http://qunarzz.com/resetcss/prd/1.0.2/reset.css"> -->
+ 	<script src="http://qunarzz.com/jquery/prd/jquery-1.7.2.js"></script>
 </head>
 <body>
 	<div class="q_header q_header_{{type}} q_header_{{type}}_home">
-		{{header}}
+		{{&header}}
 	</div>
-
 	<div class="q_pagecontainer">
 		<div class="q_pagewrap">
 			<div class="q_page">
 				<div class="l_s175m770 clr_after" style="height:650px;">
 					<div class="l_s175">
 						<div class="q_ucsidebar q_ucsidebar_{{type}}_exp q_ucsidebar_{{type}}_item{{item}}">
-							{{sidebar}}
+							{{&sidebar}}
 						</div>
 					</div>
 				</div>
@@ -27,9 +27,9 @@
 	<!-- footer -->
 	<div class="qn_footer">
 		<div class="inner">
-			{{footer}}
+			{{&footer}}
 		</div>
-	</div>	
+	</div>
 
 </body>
 </html>

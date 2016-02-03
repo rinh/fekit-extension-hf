@@ -100,6 +100,8 @@ fs.writeFileSync( extpath , [
     "exports.path = " + util.inspect(curr) + ";" ].join('\n') 
 )
 
-} catch(e) {}
+} catch(e) {
+    console.log('发生错误:',e)
+}
 
 
